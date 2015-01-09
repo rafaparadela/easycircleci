@@ -67,6 +67,9 @@ body {
 
 .branchesWrapper{border: 0px solid #999; margin-top: 15px;}
 .branchesWrapper .builds{text-align: right;}
+.branchesWrapper .builds .label-success{background-color: #2E6A3B;}
+.branchesWrapper .builds .label-primary{background-color: #213A6B;}
+.branchesWrapper .builds .label-default{background-color: #556D73;}
 
 .buildWrapper{margin-bottom: 10px;}
 .buildWrapper .branch{color: #555; font-size: 12px;}
