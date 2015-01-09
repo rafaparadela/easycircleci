@@ -92,8 +92,8 @@ function printProject(project) {
                 var title = $('<h4></h4>').text(addSpace(project.reponame)); firstCol.append(title);
             var secondCol = $('<div></div>').attr({'class':'col col-xs-6'}); repoRowTitle.append(secondCol);
                 var pRight = $('<div></div>').attr({'class':'pull-right'}); secondCol.append(pRight);
-                    var gitHubSpan = $('<btn></btn>').attr({'class':'btn btn-xs btn-default'}).html('<i class="fa fa-sign-out"></i> GitHub'); pRight.append(gitHubSpan);
-                    var circlCISpan = $('<btn></btn>').attr({'class':'btn btn-xs btn-default'}).html('<i class="fa fa-sign-out"></i> CircleCI'); pRight.append(circlCISpan);
+                    var gitHubSpan = $('<a></a>').attr({'class':'btn btn-xs btn-default', 'href':project.vcs_url, 'target':'_blank'}).html('<i class="fa fa-sign-out"></i> GitHub'); pRight.append(gitHubSpan);
+                    var circlCISpan = $('<a></a>').attr({'class':'btn btn-xs btn-default', 'href':'https://circleci.com/gh/'+project.username+'/'+project.reponame, 'target':'_blank'}).html('<i class="fa fa-sign-out"></i> CircleCI'); pRight.append(circlCISpan);
     
 
         var branchesWrapper = $('<div></div>').attr({'class':'branchesWrapper'}); repoWrapper.append(branchesWrapper);

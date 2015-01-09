@@ -17,17 +17,16 @@ body {
     font-size: 14px;
     padding-top: 10px;
     height: 42px;
-/*    background-color: rgba(0, 0, 0, 0.4);*/
-    background-color:#FFF;
+    background-color: rgba(0, 0, 0, 0.3);
+/*    background-color:#FFF;*/
 }
 
 #brand{
-    color: #002632;
+    color: #FFF;
     font-family: "Noto Sans", Verdana, Arial, Helvetica, sans-serif;
     font-weight: 300;
     font-size: 17px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+/*    text-transform: uppercase;*/
 }
 #auth_wrapper{ font-size: 15px;}
 
@@ -58,19 +57,19 @@ body {
 #logout.inside .text{width: 90px; opacity:1; text-align: right;}
 #logout.inside #myPic{width: 0px;}
 
-#circleCIwrapper{margin-top: 30px;}
+#circleCIwrapper{margin-top: 15px;}
 
 .repoWrapper{border: 0px solid #999; margin-top: 15px; margin-bottom: 30px;}
 .repoWrapper .title{ border-bottom: 1px solid #CCC; padding-bottom: 10px;}
 .repoWrapper .title .btn{margin-left: 4px;}
 .repoWrapper .col{}
-.repoWrapper h4{ font-size: 14px; padding:0px; margin-top: 3px; margin-bottom: 3px; text-transform: uppercase;}
+.repoWrapper h4{ font-size: 13px; padding:0px; margin-top: 3px; margin-bottom: 3px; text-transform: uppercase;}
 
 .branchesWrapper{border: 0px solid #999; margin-top: 15px;}
 .branchesWrapper .builds{text-align: right;}
 
 .buildWrapper{margin-bottom: 10px;}
-.buildWrapper .branch{font-weight: bold; font-size: 12px;}
+.buildWrapper .branch{color: #555; font-size: 12px;}
 .buildWrapper .builds span{margin-left: 3px; cursor: pointer;}
 
 
