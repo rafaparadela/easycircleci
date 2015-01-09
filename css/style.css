@@ -1,0 +1,144 @@
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700);
+
+/* Scaffolding*/
+html {
+	margin: 0;
+	height: 100%;
+}
+body {
+	-webkit-font-smoothing: antialiased;
+	font-family: 'Noto Sans', sans-serif;
+	height: 100%;
+}
+
+/* Top */
+#header{
+    border: 0px solid #999;
+    font-size: 14px;
+    padding-top: 10px;
+    height: 42px;
+/*    background-color: rgba(0, 0, 0, 0.4);*/
+    background-color:#FFF;
+}
+
+#brand{
+    color: #002632;
+    font-family: "Noto Sans", Verdana, Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+#auth_wrapper{ font-size: 15px;}
+
+
+#myPic{
+    width: 30px;
+    height: 30px;
+    margin-right: 6px;
+    margin-top: -3px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+    -o-transition: all 500ms ease-out;
+    transition: all 500ms ease-out;
+}
+
+#login{font-size: 12px;}
+#logout{width: 140px; px;border: 0px solid blue; overflow: hidden;}
+
+#logout .text{width: 0px; font-size: 12px;padding-top: 5px; height: 20px; overflow: hidden; float:right; opacity:0;
+    -webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+    -o-transition: all 500ms ease-out;
+    transition: all 500ms ease-out;}
+
+#logout.inside{border: 0px solid red;}
+#logout.inside .text{width: 90px; opacity:1; text-align: right;}
+#logout.inside #myPic{width: 0px;}
+
+#circleCIwrapper{margin-top: 30px;}
+
+.repoWrapper{border: 0px solid #999; margin-top: 15px; margin-bottom: 30px;}
+.repoWrapper .title{ border-bottom: 1px solid #CCC; padding-bottom: 10px;}
+.repoWrapper .title .btn{margin-left: 4px;}
+.repoWrapper .col{}
+.repoWrapper h4{ font-size: 14px; padding:0px; margin-top: 3px; margin-bottom: 3px; text-transform: uppercase;}
+
+.branchesWrapper{border: 0px solid #999; margin-top: 15px;}
+.branchesWrapper .builds{text-align: right;}
+
+.buildWrapper{margin-bottom: 10px;}
+.buildWrapper .branch{font-weight: bold; font-size: 12px;}
+.buildWrapper .builds span{margin-left: 3px; cursor: pointer;}
+
+
+
+#tokenModal .tokenRequest{ text-align: center;}
+#tokenModal .tokenRequest a{ font-style: italic; text-decoration: underline;}
+
+#buildDetails h4{text-transform: uppercase; font-size: 16px; font-weight: bold; border: 0px solid #999; margin: 0px 0px 10px 0px;}
+#buildDetails h4.success, #buildDetails h4.success{color: #3D9942;}
+#buildDetails h4.failed, #buildDetails h4.retried{color: #992E31;}
+#buildDetails h4.running, #buildDetails h4.running{color: #21587F;}
+#buildDetails h4.canceled, #buildDetails h4.no_test {color: #919186;}
+#buildDetails h4 i{ cursor: pointer; margin-right: 3px; font-size: 20px;}
+#buildDetails .btn{margin-left: 3px;}
+
+#circleCIwrapper .col-key{font-weight: bold;}
+#steps{margin-top: 15px;}
+#steps .step{margin: 3px 0px; padding: 3px; background-color: #EFEFEF;}
+#steps .step.success{border-left: 4px solid #3D9942;}
+#steps .step.failed{border-left: 4px solid #992E31;}
+#steps .step.running{border-left: 4px solid #B0892D;}
+#steps .step span{cursor: pointer;}
+
+#log .string { color: #1D8044; }
+#log .number { color: #9B4929; }
+#log .boolean { color: #138DFF; }
+#log .null { color: #848F84; }
+#log .key { color: #295A69; }
+
+.hidden{display: none;}
+#chivato{position: fixed; top:0px; left:0px; width: 10px; height: 10px;background-color: #000; z-index: 1000; cursor: pointer;}
+
+/* Bootstrap overwrite*/
+a{color: #00485F;}
+.btn{border-radius: 2px;}
+.modal-content{border-radius: 2px;}
+.modal-header{border: none;}
+.modal-title{font-size: 24px; font-family: 'Noto Sans', sans-serif; color: #333; text-align: center;}
+.modal-footer{border: none; text-align: center;}
+
+
+/* Responsive */
+
+@media (min-width: 1200px) {
+	#chivato{ background-color: red;  }
+}
+
+
+@media (min-width: 991px) and (max-width: 1200px)  {
+    #chivato{ background-color: blue;  }
+    
+}
+
+@media (min-width: 768px) and (max-width: 991px) { 
+	#chivato{ background-color: green;  }
+}
+
+@media (max-width: 991px) {
+	#chivato{ background-color: pink;  }
+    .branchesWrapper .builds{text-align: left;}
+}
+
+@media (max-width: 767px) {
+	#chivato{ background-color: violet;  }
+}
+
+@media (max-width: 480px) {
+    #chivato{ background-color: yellow;  }
+
+
+

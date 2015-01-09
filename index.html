@@ -1,0 +1,70 @@
+<!doctype html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+	<title>Easy CircleCI</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='//cdn.jsdelivr.net/animatecss/0.1/animate.min.css' rel='stylesheet' type='text/css'>
+	<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- <div id="chivato"></div> -->
+	<div id="header">
+        <div class="container">
+            <div id="brand" class="pull-left">Easy CircleCI</div>
+			<div id="auth_wrapper" class="pull-right">
+				<a href="javascript:checkToken();" id="login">Add token</a>
+				<a href="#" id="logout" class="hidden"><img id="myPic" src=""><!-- <i class="fa fa-sign-out"></i> --><div onclick="forgetToken();" class="text">Forgot token</div></a>
+			</div>
+        </div>
+	</div>
+    
+    <div id="circleCIwrapper" class="container"></div>
+    
+
+    <!-- Modals -->
+    <div class="modal fade" id="tokenModal" tabindex="-1" role="dialog" aria-labelledby="tokenModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="tokenModalLabel">Token not registered</h4>
+          </div>
+          <div class="modal-body">
+                <div class="tokenRequest">
+                    <p>Please, register a token previosly created at <a href ="https://circleci.com/account/api" target="_blanck">CircleCI account settings</a>.</p><br>
+                    <input type="text" class="form-control" placeholder="API TOKEN" id="apitoken">
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="saveToken();">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title success" id="logModalLabel">LOG</h4>
+          </div>
+          <div class="modal-body">
+              
+<pre id="log"></pre>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+	<script type="text/javascript" charset="utf-8">var base_url='http://localhost/';</script>
+ 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script> 
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  	<script src="js/app.js"></script>
+</body>
+</html>
