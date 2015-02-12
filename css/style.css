@@ -1,15 +1,104 @@
-@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+@import url(http://fonts.googleapis.com/css?family=Cambay:400,700);
 
 /* Scaffolding*/
 html {
 	margin: 0;
 	height: 100%;
 }
+
 body {
 	-webkit-font-smoothing: antialiased;
-	font-family: 'Noto Sans', sans-serif;
-	height: 100%;
+	font-family: 'Open Sans', sans-serif;
+	margin-top: 50px;
+	margin-bottom: 42px;
+    background-color: #eee;
+
 }
+
+
+#intro{
+    z-index: 1;
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    background: url(../img/bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;  
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+#onContent{
+    z-index: 0;
+    position: absolute;
+    background-color: #eee;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+
+.intro-body {
+    margin-top: 100px;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+}
+
+.intro-body .brand-heading {
+    font-size: 28px;
+    font-family: 'Cambay', sans-serif;
+}
+
+.intro-body .intro-text {
+    font-size: 14px;
+}
+
+.form-control {
+    height: 46px;
+    color: #fff;
+    background-color: rgba(255,255,255,0.0);
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+#apitoken{
+    margin-top: 60px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    color: #fff;
+}
+
+.linkToCircle{
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.linkToCircle a{color: #88BCCB;}
+
+@media(min-width:767px) {
+    .intro-body .brand-heading {
+        font-size: 55px;
+    }
+
+    .intro-body .intro-text {
+        font-size: 20px;
+    }
+}
+
+
 
 /* Top */
 #header{
@@ -21,14 +110,34 @@ body {
 /*    background-color:#FFF;*/
 }
 
+.navbar{
+    background-color: #FFF;
+    border: none;
+}
+
+.navbar-brand{
+    font-family: 'Cambay', sans-serif;
+}
+
+.navbar .navbar-brand {
+    color: #666;
+    line-height: 24px;
+}
+
+.navbar-toggle{ background-color: #eee; }
+.navbar-toggle .icon-bar{background-color: #fff;}
+
 #brand{
     color: #FFF;
-    font-family: "Noto Sans", Verdana, Arial, Helvetica, sans-serif;
+    font-family: "Open Sans", Verdana, Arial, Helvetica, sans-serif;
     font-weight: 300;
     font-size: 17px;
 /*    text-transform: uppercase;*/
 }
-#auth_wrapper{ font-size: 15px;}
+
+
+#auth_wrapper{  cursor: pointer;}
+#auth_wrapper:hover{color: #666;}
 
 
 #myPic{
@@ -44,38 +153,76 @@ body {
     transition: all 500ms ease-out;
 }
 
-#login{font-size: 12px;}
-#logout{width: 140px; px;border: 0px solid blue; overflow: hidden;}
-
-#logout .text{width: 0px; font-size: 12px;padding-top: 5px; height: 20px; overflow: hidden; float:right; opacity:0;
-    -webkit-transition: all 500ms ease-out;
-    -moz-transition: all 500ms ease-out;
-    -o-transition: all 500ms ease-out;
-    transition: all 500ms ease-out;}
-
-#logout.inside{border: 0px solid red;}
-#logout.inside .text{width: 90px; opacity:1; text-align: right;}
-#logout.inside #myPic{width: 0px;}
-
-#circleCIwrapper{margin-top: 15px;}
+#circleCIwrapper{margin-top: 65px; color: #666;}
 
 .repoWrapper{border: 0px solid #999; margin-top: 15px; margin-bottom: 30px;}
-.repoWrapper .title{ border-bottom: 1px solid #CCC; padding-bottom: 10px;}
-.repoWrapper .title .btn{margin-left: 4px;}
-.repoWrapper .col{}
-.repoWrapper h4{ font-size: 13px; padding:0px; margin-top: 3px; margin-bottom: 3px; text-transform: uppercase;}
+.repoWrapper .title{ padding-bottom: 10px;}
+.repoWrapper .title .circle{margin: 5px 0px 0px 5px;}
+.repoWrapper .externs { padding-top: 4px;}
+.repoWrapper .externs a{
+    color: #666;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+}
+.repoWrapper .externs a:last-child{
+    margin-left: 6px;
+    padding-left: 6px;
+    border-left: 1px solid #DDD;
+}
+.repoWrapper h4{font-size: 20px; padding:0px; margin-top: 3px; margin-bottom: 3px; text-transform: capitalize;}
 
-.branchesWrapper{border: 0px solid #999; margin-top: 15px;}
-.branchesWrapper .builds{text-align: right;}
-.branchesWrapper .builds .label-success{background-color: #2E6A3B;}
-.branchesWrapper .builds .label-primary{background-color: #213A6B;}
-.branchesWrapper .builds .label-default{background-color: #556D73;}
+.bg-warning {
+    background-color: #F0B518;
+}
+.circle {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+}
 
-.buildWrapper{margin-bottom: 10px;}
-.buildWrapper .branch{color: #555; font-size: 12px;}
-.buildWrapper .builds span{margin-left: 3px; cursor: pointer;}
+.branchesWrapper{margin-top: 15px;}
+.buildWrapper{}
 
+.buildWrapper .widget{
+    padding: 15px 20px 0px;
+    background: #FFF;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
 
+.buildWrapper .title{color: #666; font-weight: 600; font-size: 13px; margin: 0 0 4px; padding: 0; text-transform: capitalize;}
+.buildWrapper .branch{color: #555; font-size: 9px; font-weight: 300;}
+.buildWrapper .builds{margin: 12px 0px 0px;}
+.buildWrapper .builds .build{
+    float: left;
+    margin: 0 11px 15px 0px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #999;
+    overflow: hidden;
+    border-radius:50%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.buildWrapper .builds .build .number{font-size: 13px; font-weight: 600; margin: 0; padding: 13px 0 0; line-height: 13px;}
+.buildWrapper .builds .build .date{font-size: 9px; font-weight: 400; margin: 0; padding: 0; line-height: 9px; color: #999; }
+
+.buildWrapper .builds .build.success{border: 1px solid #4A9983;}
+.buildWrapper .builds .build.success .number{color: #4A9983;}
+.buildWrapper .builds .build.failed{border: 1px solid #994161;}
+.buildWrapper .builds .build.failed .number{color: #994161;}
+.buildWrapper .builds .build.running{border: 1px solid #459AC2;}
+.buildWrapper .builds .build.running .number{color: #459AC2;}
+.buildWrapper .builds .build.cancel{border: 1px solid #CCC;}
+.buildWrapper .builds .build.cancel .number{color: #CCC;}
+    
 
 #tokenModal .tokenRequest{ text-align: center;}
 #tokenModal .tokenRequest a{ font-style: italic; text-decoration: underline;}
@@ -106,12 +253,16 @@ body {
 #chivato{position: fixed; top:0px; left:0px; width: 10px; height: 10px;background-color: #000; z-index: 1000; cursor: pointer;}
 
 /* Bootstrap overwrite*/
-a{color: #00485F;}
+a{color: #666;}
 .btn{border-radius: 2px;}
 .modal-content{border-radius: 2px;}
 .modal-header{border: none;}
-.modal-title{font-size: 24px; font-family: 'Noto Sans', sans-serif; color: #333; text-align: center;}
+.modal-title{font-size: 24px; font-family: 'Open Sans', sans-serif; color: #333; text-align: center;}
 .modal-footer{border: none; text-align: center;}
+
+
+
+
 
 
 /* Responsive */

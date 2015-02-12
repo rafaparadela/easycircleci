@@ -1,7 +1,9 @@
 $(document).ready(function() {
     $.ajaxSetup({ cache: false });
     
+    activeLogout();
     checkToken();
+    
     
 });
 
@@ -11,7 +13,6 @@ var apiVersion = 'v1/';
 var token = false;
 // var token = 'e3c0e0dd447ccc5725eb02c68c5b7efb9686f75c';
 var myUsername = false;
-var myName = false;
 
 var projectsInterval;
 var detailInterval;
@@ -36,38 +37,13 @@ function cleanHash() {
     window.location.hash = '';
 }
 
-// Status
-
-function setOn() {
-    $('#onContent').removeClass();
-    $('#intro').addClass('animated fadeOutDown');
-    $('#intro').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-        $('#onContent').css({'z-index':1});
-        $('#intro').css({'z-index':0});
-    });
-}
-
-function setOff() {
-    $('#intro').removeClass();
-    $('#onContent').addClass('animated fadeOutDown');
-    $('#onContent').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-        $('#intro').css({'z-index':1});
-        $('#onContent').css({'z-index':0});
-    });
-}
-
-
 function checkToken() {
     token = readToken();
     if(token){
-        // $('#apitoken').val(token);
+        $('#apitoken').val(token);
         runApp();
     }
-    else setOff();
-    
-    $('#apitoken').change(function(event) {
-        // Act on the event
-    });
+    else modalToken();
 }
 
 function saveToken() {
@@ -106,15 +82,7 @@ function meInfo() {
         studyHash();
         $('#myPic').attr('src',data.avatar_url);
         myUsername = data.login;
-        myName = data.name;
-        var names = myName.split(' ');
-        $('#myName').html(names.slice(0,-1).join(" ")+' <strong>'+names.slice(-1)+'</strong>');
-        $("[data-toggle=popover]").popover();
-        $("[data-toggle=popover]").on('shown.bs.popover', function () {
-            $('#forgetMe').click(function(){
-                forgetToken();
-            });
-        })
+        $('#login').fadeOut(function(){ $('#logout').removeClass('hidden').fadeIn(); });
      }).fail(function(jqXHR) {
          forgetToken();
      });
@@ -131,7 +99,6 @@ function getBuilds() {
         });
         orderBuilds();
         initProjectCounter();
-        setOn();
      }).fail(function(jqXHR) {
          alert('Peta builds');
      });
@@ -141,44 +108,35 @@ function printProject(project) {
     
     var repoWrapper = $('<div></div>').attr({'class':'repoWrapper', 'data-username':project.username, 'data-project':project.reponame}); $('#circleCIwrapper').append(repoWrapper);
         var repoRowTitle = $('<div></div>').attr({'class':'row title'}); repoWrapper.append(repoRowTitle);
-            var firstCol = $('<div></div>').attr({'class':'col col-xs-8'}); repoRowTitle.append(firstCol);
+            var firstCol = $('<div></div>').attr({'class':'col col-xs-6'}); repoRowTitle.append(firstCol);
                 var title = $('<h4></h4>').text(addSpace(project.reponame)); firstCol.append(title);
-            var secondCol = $('<div></div>').attr({'class':'col col-xs-4'}); repoRowTitle.append(secondCol);
-            var pRight = $('<div></div>').attr({'class':'pull-right externs'}); secondCol.append(pRight);
+            var secondCol = $('<div></div>').attr({'class':'col col-xs-6'}); repoRowTitle.append(secondCol);
+                var pRight = $('<div></div>').attr({'class':'pull-right'}); secondCol.append(pRight);
+                    var gitHubSpan = $('<a></a>').attr({'class':'btn btn-xs btn-default', 'href':project.vcs_url, 'target':'_blank'}).html('<i class="fa fa-sign-out"></i> GitHub'); pRight.append(gitHubSpan);
+                    var circlCISpan = $('<a></a>').attr({'class':'btn btn-xs btn-default', 'href':'https://circleci.com/gh/'+project.username+'/'+project.reponame, 'target':'_blank'}).html('<i class="fa fa-sign-out"></i> CircleCI'); pRight.append(circlCISpan);
+    
 
-                    var gitHubSpan = $('<a></a>').attr({'href':project.vcs_url, 'target':'_blank'}).text('GitHub'); pRight.append(gitHubSpan);
-                    var circlCISpan = $('<a></a>').attr({'href':'https://circleci.com/gh/'+project.username+'/'+project.reponame, 'target':'_blank'}).text('CircleCI'); pRight.append(circlCISpan);
-                    
-
-        var branchesWrapper = $('<div></div>').attr({'class':'branchesWrapper row'}); repoWrapper.append(branchesWrapper);
+        var branchesWrapper = $('<div></div>').attr({'class':'branchesWrapper'}); repoWrapper.append(branchesWrapper);
 
         var repo_date_last_build = 0;
         var branchesNum = 0;
         $.each(project.branches, function(branch_index, branch) {
             
-           
-            
             if(branch.pusher_logins != undefined){
                 if(branch.pusher_logins.indexOf(myUsername)!=-1){
-                     console.log(branch);
                     branchesNum++;
-                    var buildWrapper = $('<div></div>').attr({'class':'col col-md-6 buildWrapper'}); branchesWrapper.append(buildWrapper);
-                        var widget = $('<div></div>').attr({'class':'widget'}); buildWrapper.append(widget);
-                        
-                            var branchWrapper = $('<div></div>').attr({'class':'title'}).text(getBranchTitle(branch_index)); widget.append(branchWrapper);
-                            var branchWrapper = $('<div></div>').attr({'class':'branch'}).text(branch_index); widget.append(branchWrapper);
-                            var buildsWrapper = $('<div></div>').attr({'class':'builds clearfix'}); widget.append(buildsWrapper);
+                    var buildWrapper = $('<div></div>').attr({'class':'row buildWrapper'}); branchesWrapper.append(buildWrapper);
+                        var firstCol = $('<div></div>').attr({'class':'col col-md-6'}); buildWrapper.append(firstCol);
+                            var branchWrapper = $('<div></div>').attr({'class':'branch'}).text(branch_index); firstCol.append(branchWrapper);
+                        var secondCol = $('<div></div>').attr({'class':'col col-md-6'}); buildWrapper.append(secondCol);
+                            var buildsWrapper = $('<div></div>').attr({'class':'builds'}); secondCol.append(buildsWrapper);
 
                     var date_last_build = 0;
 
                     $.each(branch.running_builds.concat(branch.recent_builds), function(builds_index, build) {
                         var mydate = new Date(build.added_at).getTime();
                         if(mydate>date_last_build) date_last_build=mydate;
-                        
-                        var buildButton = $('<div></div>').attr({'class':'build '+build.status, 'data-build-num':build.build_num}); buildsWrapper.append(buildButton);
-                            var buildButtonNumber = $('<div></div>').attr({'class':'number'}).text(build.build_num); buildButton.append(buildButtonNumber);
-                            var buildButtonDate = $('<div></div>').attr({'class':'date'}).text(getDateAgo(build.added_at)); buildButton.append(buildButtonDate);
-                        
+                        var buildButton = $('<span></span>').attr({'class':'label '+buildClasses(build.status), 'data-build-num':build.build_num}).text(build.build_num); buildsWrapper.append(buildButton);
                         buildButton.click(function(event) {
                             window.location.hash = 'project/'+project.username+'/'+project.reponame+'/'+build.build_num;
                             // loadBuildDetails(project.username, project.reponame, build.build_num);
@@ -430,6 +388,19 @@ function showAniming(element,animation,callback) {
 }
 
 
+function activeLogout() {
+    $('#logout').on({
+      mouseenter: function() {
+        $(this).addClass( "inside" );
+      }, mouseleave: function() {
+        $(this).removeClass( "inside" );
+      }
+    });
+    
+   
+}
+
+
 //highlight
 function syntaxHighlight(obj) {
     var json = JSON.stringify(obj, undefined, 2);
@@ -452,62 +423,6 @@ function syntaxHighlight(obj) {
 }
 
 //Utils
-
-function getBranchTitle(branch) {
-  var dev = branch;
-  var re = /(\S+)-(\d+)-(\S+)/; 
-  var m = re.exec(branch);
-  if(m){
-    var ticket = m[2];
-    var title = m[3].replace(/-/g, " ");
-    dev = title;
-    var prefix = m[1].split("-");
-    if(prefix.length>1) ticket = prefix.pop()+"-"+ticket;
-    else ticket = prefix+"-"+ticket;
-  }
-  else dev = extractFin(branch);
-
-  return dev;
-}
-
-function extractFin(branch) {
-    var dev = branch;
-    var re = /(\S+)-fin-(\S+)/i;
-    var m = re.exec(branch);
-    if(m){
-        var title = m[2].replace(/-/g, " ");
-        dev = title;
-    }
-    return dev;
-}
-
-function getDateAgo(added) {
-  
-  var seconds = Math.floor((new Date() - new Date(added)) / 1000);
-
-    var interval = Math.floor(seconds / 31536000);
-
-    if (interval > 1) {
-        return interval + " years";
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-        return interval + " months";
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-        return interval + " days";
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-        return interval + " h.";
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-        return interval + " min.";
-    }
-    return Math.floor(seconds) + " sec.";
-}
 
 function addSpace(str) {
     return str.replace('_', ' ');
