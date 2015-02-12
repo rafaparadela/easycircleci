@@ -9,63 +9,99 @@
     <link href='//cdn.jsdelivr.net/animatecss/0.1/animate.min.css' rel='stylesheet' type='text/css'>
 	<link href="css/style.css" rel="stylesheet">
 </head>
-<body>
-    <!-- <div id="chivato"></div> -->
-	<div id="header">
-        <div class="container">
-            <div id="brand" class="pull-left">Easy<strong>CircleCI</strong></div>
-			<div id="auth_wrapper" class="pull-right">
-				<a href="javascript:checkToken();" id="login">Add token</a>
-				<a href="#" id="logout" class="hidden"><img id="myPic" src=""><!-- <i class="fa fa-sign-out"></i> --><div onclick="forgetToken();" class="text">Forgot token</div></a>
-			</div>
-            <div id="tempo" class="pull-right"></div>
-        </div>
-	</div>
-    
-    <div id="circleCIwrapper" class="container"></div>
-    
-
-    <!-- Modals -->
-    <div class="modal fade" id="tokenModal" tabindex="-1" role="dialog" aria-labelledby="tokenModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="tokenModalLabel">Token not registered</h4>
-          </div>
-          <div class="modal-body">
-                <div class="tokenRequest">
-                    <p>Please, register a token previosly created at <a href ="https://circleci.com/account/api" target="_blanck">CircleCI account settings</a>.</p><br>
-                    <input type="text" class="form-control" placeholder="API TOKEN" id="apitoken">
-                </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="saveToken();">SAVE</button>
-          </div>
+<body class="off">
+  
+      <!-- Intro Content -->
+      <div id="intro">
+          <div  class="intro-body">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-8 col-md-offset-2">
+                          <h1 class="brand-heading">EASY<strong>CIRCLECI</strong></h1>
+                          <p class="intro-text">A simplified client for CircleCI, where you can monitor only your last builds with a clear interface. Do not miss among many builds!</p>
+                          <!-- <input type="text" placeholder="API TOKEN" id="apitoken"> -->
+                          <form role="form">
+                              <div class="form-group">
+                                  <!-- <label>Name</label> -->
+                                  <input type="text" class="form-control" placeholder="API TOKEN" id="apitoken">
+                              </div>
+                          </form>
+                          <div class="linkToCircle">
+                              <a href ="https://circleci.com/account/api" target="_blanck">CircleCI account settings</a>
+                          </div>
+                      
+                      </div>
+                  </div>
+              </div>
         </div>
       </div>
-    </div>
-
-    <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
-      <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title success" id="logModalLabel">LOG</h4>
-          </div>
-          <div class="modal-body">
+      <!-- /.container -->
+      
+      
+      <!-- Intro Content -->
+      <div id="onContent">
+          <!-- Navigation -->
+          <nav class="navbar navbar-fixed-top" role="navigation">
+              <div class="container">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">EASY<strong>CIRCLECI</strong></a>
+                  </div>
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  
+                  
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <ul class="nav navbar-nav navbar-right">
+                              <li class="dropdown">
+                                  <a id="auth_wrapper" data-toggle="collapse" data-target="#forgetMe">
+                                      <span class="thumb-sm avatar pull-left"><img id="myPic" class="img-circle"></span>
+                                      &nbsp;
+                                      <span id="myName"></span>
+                                      &nbsp;
+                                      <button class="collapse btn btn-xs btn-danger pull-right" id="forgetMe" onclick="forgetToken();">Forget token</button>
+                                  </a>
+                              </li>
+                          </ul>
+                  
+                  </div>
+                  
+                  
+                  <!-- /.navbar-collapse -->
+              </div>
+              <!-- /.container -->
+          </nav>
+          <div id="circleCIwrapper" class="container"></div>
+      </div>
+      <!-- /.container -->
+      
+      
+      
+      <!-- Modals -->
+          <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title success" id="logModalLabel">LOG</h4>
+                </div>
+                <div class="modal-body">
               
 <pre id="log"></pre>
 
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-
+      
+  
 	<script type="text/javascript" charset="utf-8">var base_url='http://localhost/';</script>
- 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script> 
- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.0.0/isotope.pkgd.min.js"></script> 
+ 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>  
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   	<script src="js/app.js"></script>
 </body>

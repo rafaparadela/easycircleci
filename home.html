@@ -1,146 +1,178 @@
-<!doctype html>
 <html xmlns:fb="http://ogp.me/ns/fb#">
-<head>
+  <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-	<title>Easy CircleCI</title>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='//cdn.jsdelivr.net/animatecss/0.1/animate.min.css' rel='stylesheet' type='text/css'>
-	<link href="css/style.css" rel="stylesheet">
-</head>
-<body class="off">
-  
-     
-
-      <!-- Intro Content -->
-      <div id="intro">
-          <div  class="intro-body">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-md-8 col-md-offset-2">
-                          <h1 class="brand-heading">EASY<strong>CIRCLECI</strong></h1>
-                          <p class="intro-text">A simplified client for CircleCI, where you can monitor only your last builds with a clear interface. Do not miss among many builds!</p>
-                          <!-- <input type="text" placeholder="API TOKEN" id="apitoken"> -->
-                          <form role="form">
-                              <div class="form-group">
-                                  <!-- <label>Name</label> -->
-                                  <input type="text" class="form-control" placeholder="API TOKEN" id="apitoken">
-                              </div>
-                          </form>
-                          <div class="linkToCircle">
-                              <a href ="https://circleci.com/account/api" target="_blanck">CircleCI account settings</a>
-                          </div>
-                      
-                      </div>
-                  </div>
-              </div>
-        </div>
-      </div>
-      <!-- /.container -->
-      
-      
-      <!-- Intro Content -->
-      <div id="onContent">
-          <!-- Navigation -->
-          <nav class="navbar navbar-fixed-top" role="navigation">
-              <div class="container">
-                  <!-- Brand and toggle get grouped for better mobile display -->
-                  <div class="navbar-header">
-                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                          <span class="sr-only">Toggle navigation</span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="#">EASY<strong>CIRCLECI</strong></a>
-                  </div>
-                  <!-- Collect the nav links, forms, and other content for toggling -->
-                  
-                  
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                          <ul class="nav navbar-nav navbar-right">
-                              <li class="dropdown">
-                                  <a id="auth_wrapper" data-toggle="collapse" data-target="#forgetMe">
-                                      <span class="thumb-sm avatar pull-left"><img id="myPic" class="img-circle"></span>
-                                      &nbsp;
-                                      <span id="myName"></span>
-                                      &nbsp;
-                                      <button class="collapse btn btn-xs btn-danger pull-right" id="forgetMe" onclick="saveToken();">Forget token</button>
-                                  </a>
-                              </li>
-                          </ul>
-                  
-                  </div>
-                  
-                  
-                  <!-- /.navbar-collapse -->
-              </div>
-              <!-- /.container -->
-          </nav>
-          <div id="circleCIwrapper" class="container">
-              
-              
-              <!--
-              
-              
-              <div class="repoWrapper" data-username="angieslist" data-project="servicetown_backend" data-date-build="1423671923247">
-                  <div class="row title">
-                      <div class="col col-xs-8"><h4>servicetown backend</h4></div>
-                      <div class="col col-xs-4">
-                          <div class="pull-right externs">
-                              <a href="https://github.com/angieslist/servicetown_backend" target="_blank">GitHub</a>
-                              <a href="https://circleci.com/gh/angieslist/servicetown_backend" target="_blank">CircleCI</a>
-                          </div>
-                      </div>
-                  </div>
-                  
-                  <div class="branchesWrapper row">
-                      
-                      <div class="col col-md-6 buildWrapper" data-date-build="1417095525608">
-                        <div class="widget">
-                              <div class="title">FIN-824 Add Microservice Refund Processing</div>
-                              <div class="branch">Branch: rp-fin-824-add-microservice-refund-processing</div>
-                              <div class="builds clearfix">
-                                  <div class="build success">
-                                      <div class="number">16897</div>
-                                      <div class="date">3 min.</div>
-                                  </div>
-                                  <div class="build failed">
-                                      <div class="number">16884</div>
-                                      <div class="date">8 sec.</div>
-                                  </div>
-                                  <div class="build">
-                                      <div class="number">16884</div>
-                                      <div class="date">18 days</div>
-                                  </div>
-                                  <div class="build running">
-                                      <div class="number">21222</div>
-                                      <div class="date">12 h.</div>
-                                  </div>
-                                  <div class="build cancel">
-                                      <div class="number">21191</div>
-                                      <div class="date">3 days</div>
-                                  </div>
-                              </div>
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  <title>
+    Easy CircleCI
+  </title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.jsdelivr.net/animatecss/0.1/animate.min.css" rel="stylesheet" type="text/css">
+  <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body class="off">
+    
+    
+    
+    <!-- Intro Content -->
+    <div id="intro" class="animated fadeOutDown" style="z-index: 0;">
+      <div class="intro-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <h1 class="brand-heading">
+                EASY
+                <strong>
+                  CIRCLECI
+                </strong>
+              </h1>
+              <p class="intro-text">
+                A simplified client for CircleCI, where you can monitor only your last builds with a clear interface. Do not miss among many builds!
+              </p>
+              <!-- 
+<input type="text" placeholder="API TOKEN" id="apitoken">
+-->
+                        <form role="form">
+                          <div class="form-group">
+                            <!-- 
+<label>
+Name
+</label>
+-->
+                                <input type="text" class="form-control" placeholder="API TOKEN" id="apitoken">
+                            </div>
+                        </form>
+                        <div class="linkToCircle">
+                          <a href="https://circleci.com/account/api" target="_blanck">
+                            CircleCI account settings
+                          </a>
                         </div>
-                      </div>
-                  </div>
-              </div>
-              
-              
-              -->
-              
-          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+  <!-- /.container -->
+  
+  
+  <!-- Intro Content -->
+  <div id="onContent" style="z-index: 1;">
+    <!-- Navigation -->
+    <nav class="navbar navbar-fixed-top" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">
+              Toggle navigation
+            </span>
+            <span class="icon-bar">
+            </span>
+            <span class="icon-bar">
+            </span>
+            <span class="icon-bar">
+            </span>
+          </button>
+          <a class="navbar-brand" href="#">
+            EASY
+            <strong>
+              CIRCLECI
+            </strong>
+          </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        
+        
+        <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a id="auth_wrapper" data-toggle="collapse" data-target="#forgetMe">
+                <span class="thumb-sm avatar pull-left">
+                  <img id="myPic" class="img-circle" src="https://avatars.githubusercontent.com/u/315070?v=3">
+                </span>
+                &nbsp;
+                <span id="myName">
+                  Rafa 
+                  <strong>
+                    Paradela
+                  </strong>
+                </span>
+                &nbsp;
+                <button class="collapse btn btn-xs btn-danger pull-right" id="forgetMe" onclick="forgetToken();">
+                  Forget token
+                </button>
+              </a>
+            </li>
+          </ul>
+          
+        </div>
+        
+        
+        <!-- /.navbar-collapse -->
       </div>
       <!-- /.container -->
+    </nav>
+    <div id="circleCIwrapper" class="container">
+      
+      
+      <div id="buildDetails" class="row">
+        <div class="col-xs-12">
+          <h4>Track Membership Entitlements</h4>
+          <div class="col-key">Status: <strong>Running</strong></div>
+          <div class="col-key">Build: <strong>72362</strong></div>
+          <div class="col-key">Author: <strong>John Chastain</strong></div>
+          <div class="col-key">External: <a href="#"><strong>CircleCI</strong></a> | <a href="#"><strong>GitHub</strong></a></div>
+        </div>
+        
+        
+        <div id="buildSteps" class="col col-xs-12">
+            
+
+                <div class="step success">
+                    <i class="fa fa-circle"></i>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                
+                <div class="step failed log">
+                    <i class="fa fa-circle"></i>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod .</p>
+                </div>
+
+                <div class="step running">
+                    <i class="fa fa-circle"></i>
+                    <p>Checkout using deploy key: 6b:76:ad:84:94:ed:c0:b2:66:91:9c:79:2b:7a:8b:bc</p>
+                </div>
+           
+                <div class="step running">
+                    <i class="fa fa-refresh fa-spin"></i>
+                    <p>Checkout using deploy key: 6b:76:ad:84:94:ed:c0:b2:66:91:9c:79:2b:7a:8b:bc</p>
+                </div>
+
+        </div>
+       
+      </div>
+
       
       
       
+      
+    </div>
+  </div>
+  <!-- /.container -->
   
-	<script type="text/javascript" charset="utf-8">var base_url='http://localhost/';</script>
- 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>  
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  	<script src="js/app.js"></script>
-</body>
+  
+  
+  
+  <script type="text/javascript" charset="utf-8">
+    var base_url='http://localhost/';
+  </script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js">
+  </script>
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js">
+  </script>
+<!-- l  <script src="js/app.js"> </script> -->
+  
+  </body>
 </html>

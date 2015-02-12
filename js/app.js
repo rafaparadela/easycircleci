@@ -9,7 +9,6 @@ var circleciBaseURL = 'https://circleci.com/api/';
 var apiVersion = 'v1/';
 
 var token = false;
-// var token = 'e3c0e0dd447ccc5725eb02c68c5b7efb9686f75c';
 var myUsername = false;
 var myName = false;
 
@@ -65,8 +64,11 @@ function checkToken() {
     }
     else setOff();
     
-    $('#apitoken').change(function(event) {
-        // Act on the event
+    $('#apitoken').keypress(function (event) {
+        if (event.which == 13) {
+            saveToken();
+            return false;
+        }
     });
 }
 
@@ -83,17 +85,16 @@ function saveToken() {
 }
 
 function forgetToken() {
+    clearInterval(projectsInterval);
+    clearInterval(detailInterval);
     $('#apitoken').val('');
     removeToken();
     cleanLocalStorage();
     token = false;
     checkToken();
-    $('#logout').fadeOut(function(){
-        $('#login').fadeIn();
-        $('#myPic').attr('src','');
-        $('#circleCIwrapper').empty();
-        
-    });
+    $('#myPic').attr('src','');
+    $('#circleCIwrapper').empty();
+    setOff();
 }
 
 function runApp() {
@@ -109,12 +110,7 @@ function meInfo() {
         myName = data.name;
         var names = myName.split(' ');
         $('#myName').html(names.slice(0,-1).join(" ")+' <strong>'+names.slice(-1)+'</strong>');
-        $("[data-toggle=popover]").popover();
-        $("[data-toggle=popover]").on('shown.bs.popover', function () {
-            $('#forgetMe').click(function(){
-                forgetToken();
-            });
-        })
+        
      }).fail(function(jqXHR) {
          forgetToken();
      });
@@ -237,17 +233,14 @@ function endpointURL(method) {
 
 //Modals
 
-function modalToken() {
-    $('#tokenModal').modal('show');
-}
-
 function loadBuildDetails(username, project, build) {
     var endpoint = 'project/'+username+'/'+project+'/'+build;
     $.getJSON(endpointURL(endpoint))
     .done(function( data ) {
         fillBuildDetails(data, username, project, build);
+        setOn();
      }).fail(function(jqXHR) {
-         alert('petaa');
+         alert('Fail!!');
      });;
 }
 
@@ -276,49 +269,43 @@ function fillBuildDetails(data, username, project, build) {
     $('#circleCIwrapper').empty();
     
     var rowTitle = $('<div></div>').attr({'id':'buildDetails', 'class':'row'}); $('#circleCIwrapper').append(rowTitle);
-        var firstCol = $('<div></div>').attr({'class':'col-xs-6'}); rowTitle.append(firstCol);
-            var title = $('<h4></h4>').attr({'class':data.status}).text(data.build_num+' ['+data.status+']'); firstCol.append(title);
-                var backButton = $('<i></i>').attr({'class':'fa fa-arrow-circle-left'}); title.prepend(backButton);
-                backButton.click(function(event) {
-                    cleanHash();
-                });
-            
-        var secondCol = $('<div></div>').attr({'class':'col col-xs-6'}); rowTitle.append(secondCol);
-            var pRight = $('<div></div>').attr({'class':'pull-right'}); secondCol.append(pRight);
-                var cancelButton = $('<btn></btn>').attr({'class':'btn btn-xs btn-default'}).html('<i class="fa fa-times"></i> Cancel'); pRight.append(cancelButton);
-                cancelButton.click(function(event) {
-                    cancelBuild(username, project, build);
-                });
-                var rebuildButton = $('<btn></btn>').attr({'class':'btn btn-xs btn-default'}).html('<i class="fa fa-repeat"></i> Rebuild'); pRight.append(rebuildButton);
-                rebuildButton.click(function(event) {
-                    retryBuild(username, project, build);
-                });
+        var firstCol = $('<div></div>').attr({'class':'col-xs-12'}); rowTitle.append(firstCol);
+            var title = $('<h4></h4>').attr({'class':data.status}).text(getBranchTitle(data.branch)); firstCol.append(title);
+                
+                // var backButton = $('<i></i>').attr({'class':'fa fa-arrow-circle-left'}); title.prepend(backButton);
+ //                backButton.click(function(event) {
+ //                    cleanHash();
+ //                });
+
+            var statusKol = $('<div></div>').attr({'class':'col-key'}).html('Status: <strong>'+data.status+'</strong>'); firstCol.append(statusKol);
+            var buildKol = $('<div></div>').attr({'class':'col-key'}).html('Build: <strong>'+data.build_num+'</strong>'); firstCol.append(buildKol);
+            var authorKol = $('<div></div>').attr({'class':'col-key'}).html('Author: <strong><a href="https://github.com/'+data.all_commit_details[0].committer_login+'" target="_blank">'+data.all_commit_details[0].committer_name+'</a></strong>'); firstCol.append(authorKol);
+            var externalKol = $('<div></div>').attr({'class':'col-key'}).html('External: <strong><a href="'+data.build_url+'" target="_blank">CircleCI</a></strong> | <strong><a href="'+data.all_commit_details[0].commit_url+'" target="_blank">GitHub</a></strong>'); firstCol.append(externalKol);
+          
+            // var pRight = $('<div></div>').attr({'class':'pull-right'}); secondCol.append(pRight);
+            //     var cancelButton = $('<btn></btn>').attr({'class':'btn btn-xs btn-default'}).html('<i class="fa fa-times"></i> Cancel'); pRight.append(cancelButton);
+            //     cancelButton.click(function(event) {
+            //         cancelBuild(username, project, build);
+            //     });
+            //     var rebuildButton = $('<btn></btn>').attr({'class':'btn btn-xs btn-default'}).html('<i class="fa fa-repeat"></i> Rebuild'); pRight.append(rebuildButton);
+            //     rebuildButton.click(function(event) {
+            //         retryBuild(username, project, build);
+            //     });
     
-    var rowAuthor = $('<div></div>').attr({'class':'row'}); $('#circleCIwrapper').append(rowAuthor);
-        var firstCol = $('<div></div>').attr({'class':'col-key col-xs-2'}).text('Author:'); rowAuthor.append(firstCol);
-        var secondCol = $('<div></div>').attr({'class':'col col-xs-10'}).html('<a href="https://github.com/'+data.all_commit_details[0].committer_login+'" target="_blank">'+data.all_commit_details[0].committer_name+'</a>'); rowAuthor.append(secondCol);
     
-    var rowCircleCI = $('<div></div>').attr({'class':'row'}); $('#circleCIwrapper').append(rowCircleCI);
-        var firstCol = $('<div></div>').attr({'class':'col-key col-xs-2'}).text('CircleCI:'); rowCircleCI.append(firstCol);
-        var secondCol = $('<div></div>').attr({'class':'col col-xs-10'}).html('<a href="'+data.build_url+'" target="_blank">View in CircleCI</a>'); rowCircleCI.append(secondCol);
-    
-    var rowCommit = $('<div></div>').attr({'class':'row'}); $('#circleCIwrapper').append(rowCommit);
-        var firstCol = $('<div></div>').attr({'class':'col-key col-xs-2'}).text('Commit:'); rowCommit.append(firstCol);
-        var secondCol = $('<div></div>').attr({'class':'col col-xs-10'}).html('<a href="'+data.all_commit_details[0].commit_url+'" target="_blank">'+data.all_commit_details[0].subject+'</a>'); rowCommit.append(secondCol);
-    
-    var rowSteps = $('<div></div>').attr({'id':'steps', 'class':'row'}); $('#circleCIwrapper').append(rowSteps);
-        var firstCol = $('<div></div>').attr({'class':'col-key col-step-title col-xs-12'}).text('Steps:'); rowSteps.append(firstCol);
-        var buildSteps = $('<div></div>').attr({'id':'buildSteps', 'class':'col col-xs-12'}); rowSteps.append(buildSteps);
+    var buildSteps = $('<div></div>').attr({'id':'buildSteps', 'class':'col col-xs-12'}); rowTitle.append(buildSteps);
 
     $.each(data.steps, function(index, step) {
-        var step_div = $('<div></div>').attr({'class':'step '+step.actions[0].status}).text(step.name); buildSteps.append(step_div);
+        
+        var step_div = $('<div></div>').attr({'class':'step '+step.actions[0].status}); buildSteps.append(step_div);
+        var step_circle = $('<i></i>').attr({'class':'fa fa-circle'}); step_div.append(step_circle);
+        var step_text = $('<p></p>').text(step.name); step_div.append(step_text);
+        
+        if(step.actions[0].status == 'running') step_circle.removeClass().addClass('fa fa-spin fa-refresh');
+        
         if(step.actions[0].has_output){
-            if(step.actions[0].status == 'running'){
-                var log_span = $('<span></span>').attr({'class':'pull-right'}).html('<i class="fa fa-spin fa-refresh"></i>'); step_div.prepend(log_span);
-            }
-            else{
-                var log_span = $('<span></span>').attr({'class':'pull-right label label-default'}).text('LOG'); step_div.prepend(log_span);
-                log_span.click(function(event) {
+            if(step.actions[0].status != 'running'){        
+                step_div.addClass('log').click(function(event) {
                     printLog(step.actions[0].output_url);
                 });
             }
@@ -330,6 +317,7 @@ function fillBuildDetails(data, username, project, build) {
 }
 
 function printLog(url) {
+    console.log('voyy');
     $('#log').html("Loading...");
     $('#logModal').modal('show');
     
@@ -492,7 +480,7 @@ function getDateAgo(added) {
     }
     interval = Math.floor(seconds / 2592000);
     if (interval > 1) {
-        return interval + " months";
+        return interval + " mo.";
     }
     interval = Math.floor(seconds / 86400);
     if (interval > 1) {

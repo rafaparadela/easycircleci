@@ -111,20 +111,22 @@ body {
 }
 
 .navbar{
-    background-color: #FFF;
+    background-color: #0F536A;
     border: none;
 }
+
+.navbar a{color: #FFF;}
 
 .navbar-brand{
     font-family: 'Cambay', sans-serif;
 }
 
 .navbar .navbar-brand {
-    color: #666;
+    color: #FFF;
     line-height: 24px;
 }
 
-.navbar-toggle{ background-color: #eee; }
+.navbar-toggle{ background-color: #88BCCB; }
 .navbar-toggle .icon-bar{background-color: #fff;}
 
 #brand{
@@ -227,21 +229,25 @@ body {
 #tokenModal .tokenRequest{ text-align: center;}
 #tokenModal .tokenRequest a{ font-style: italic; text-decoration: underline;}
 
-#buildDetails h4{text-transform: uppercase; font-size: 16px; font-weight: bold; border: 0px solid #999; margin: 0px 0px 10px 0px;}
-#buildDetails h4.success, #buildDetails h4.success{color: #3D9942;}
-#buildDetails h4.failed, #buildDetails h4.retried{color: #992E31;}
-#buildDetails h4.running, #buildDetails h4.running{color: #21587F;}
-#buildDetails h4.canceled, #buildDetails h4.no_test {color: #919186;}
-#buildDetails h4 i{ cursor: pointer; margin-right: 3px; font-size: 20px;}
-#buildDetails .btn{margin-left: 3px;}
 
-#circleCIwrapper .col-key{font-weight: bold;}
-#steps{margin-top: 15px;}
-#steps .step{margin: 3px 0px; padding: 3px; background-color: #EFEFEF;}
-#steps .step.success{border-left: 4px solid #3D9942;}
-#steps .step.failed{border-left: 4px solid #992E31;}
-#steps .step.running{border-left: 4px solid #B0892D;}
-#steps .step span{cursor: pointer;}
+#buildDetails h4{text-transform: capitalize;}
+#buildDetails .col-key{font-weight: 300; font-size: 13px; text-transform: capitalize;}
+
+#buildSteps {margin-top: 20px;}
+#buildSteps .step{padding: 10px 15px 2px 12px;  background: #FFF; border-radius: 3px;  margin-bottom: 15px; position: relative;}
+#buildSteps .step i{color: #999;font-size: 16px;  margin-right: 12px; margin-bottom: 6px; line-height: 16px; position: absolute; top:10px; left:10px;}
+#buildSteps .step p{font-size: 10px; padding-left: 22px; color: #BBB;}
+
+#buildSteps .step.log {cursor: pointer;}
+#buildSteps .step.log p{color: #666; font-weight: 600;}
+
+#buildSteps .step.success i{color: #4A9983;}
+#buildSteps .step.failed i{color: #994161;}
+#buildSteps .step.running i{color: #459AC2;}
+
+
+
+
 
 #log .string { color: #1D8044; }
 #log .number { color: #9B4929; }
