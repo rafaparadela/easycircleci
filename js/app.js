@@ -135,6 +135,7 @@ function getBuilds() {
 
 function printProject(project) {
     
+    
     var repoWrapper = $('<div></div>').attr({'class':'repoWrapper', 'data-username':project.username, 'data-project':project.reponame}); $('#circleCIwrapper').append(repoWrapper);
         var repoRowTitle = $('<div></div>').attr({'class':'row title'}); repoWrapper.append(repoRowTitle);
             var firstCol = $('<div></div>').attr({'class':'col col-xs-8'}); repoRowTitle.append(firstCol);
@@ -195,6 +196,9 @@ function printProject(project) {
         else{
             repoWrapper.remove();
         }
+        
+        // $('#circleCIwrapper').show();
+//         showAniming($('#circleCIwrapper'), 'fadeInUp', false);
 
 }
 
@@ -266,21 +270,21 @@ function retryBuild(username, project, build) {
 }
 
 function fillBuildDetails(data, username, project, build) {
-    $('#circleCIwrapper').empty();
+ $('#circleCIwrapper').empty();
+    
+    // var backButton = $('<div></div>').attr({'id':'back'}).html('<i class="fa fa-arrow-left"></i>'); $('#circleCIwrapper').append(backButton);
+    // backButton.click(function(event) { cleanHash(); });
     
     var rowTitle = $('<div></div>').attr({'id':'buildDetails', 'class':'row'}); $('#circleCIwrapper').append(rowTitle);
         var firstCol = $('<div></div>').attr({'class':'col-xs-12'}); rowTitle.append(firstCol);
-            var title = $('<h4></h4>').attr({'class':data.status}).text(getBranchTitle(data.branch)); firstCol.append(title);
-                
-                // var backButton = $('<i></i>').attr({'class':'fa fa-arrow-circle-left'}); title.prepend(backButton);
- //                backButton.click(function(event) {
- //                    cleanHash();
- //                });
-
-            var statusKol = $('<div></div>').attr({'class':'col-key'}).html('Status: <strong>'+data.status+'</strong>'); firstCol.append(statusKol);
-            var buildKol = $('<div></div>').attr({'class':'col-key'}).html('Build: <strong>'+data.build_num+'</strong>'); firstCol.append(buildKol);
-            var authorKol = $('<div></div>').attr({'class':'col-key'}).html('Author: <strong><a href="https://github.com/'+data.all_commit_details[0].committer_login+'" target="_blank">'+data.all_commit_details[0].committer_name+'</a></strong>'); firstCol.append(authorKol);
-            var externalKol = $('<div></div>').attr({'class':'col-key'}).html('External: <strong><a href="'+data.build_url+'" target="_blank">CircleCI</a></strong> | <strong><a href="'+data.all_commit_details[0].commit_url+'" target="_blank">GitHub</a></strong>'); firstCol.append(externalKol);
+        
+            var title = $('<h4></h4>').attr({'class':data.status}).text(data.build_num+' '+getBranchTitle(data.branch)); firstCol.append(title);
+             
+            var dateKol = $('<div></div>').attr({'class':'col-key'}).html('<h6 class="name">Date</h6><p class="value">'+getDateAgo(data.start_time)+'</p>'); firstCol.append(dateKol);
+            var statusKol = $('<div></div>').attr({'class':'col-key'}).html('<h6 class="name">Status</h6><p class="value">'+data.status+'</strong>'); firstCol.append(statusKol);
+            // var buildKol = $('<div></div>').attr({'class':'col-key'}).html('<h6 class="name">Build</h6><p class="value">'+data.build_num+'</strong>'); firstCol.append(buildKol);
+            var authorKol = $('<div></div>').attr({'class':'col-key'}).html('<h6 class="name">Author</h6><p class="value">'+data.author_name+'</strong>'); firstCol.append(authorKol);
+            var externalKol = $('<div></div>').attr({'class':'col-key'}).html('<h6 class="name">External</h6><p class="value"><a href="'+data.build_url+'" target="_blank">CircleCI</a> | <a href="'+data.all_commit_details[0].commit_url+'" target="_blank">GitHub</a></p>'); firstCol.append(externalKol);
           
             // var pRight = $('<div></div>').attr({'class':'pull-right'}); secondCol.append(pRight);
             //     var cancelButton = $('<btn></btn>').attr({'class':'btn btn-xs btn-default'}).html('<i class="fa fa-times"></i> Cancel'); pRight.append(cancelButton);
